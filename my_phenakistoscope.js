@@ -1,8 +1,8 @@
-const SLICE_COUNT = 10;
+const SLICE_COUNT = 11;
 
 function setup_pScope(pScope){
  // pScope.output_mode(STATIC_FRAME);
-//pScope.output_mode( ANIMATED_FRAME);
+    //pScope.output_mode( ANIMATED_FRAME);
   pScope.output_mode(ANIMATED_DISK);
   //pScope.output_mode(STATIC_DISK);
   //pScope.output_mode(OUTPUT_GIF(1000));
@@ -10,12 +10,12 @@ function setup_pScope(pScope){
   pScope.draw_layer_boundaries(true);
   pScope.set_direction(CCW);
   pScope.set_slice_count(SLICE_COUNT);
-  pScope.load_image("spark" , "png")
+  pScope.load_image("spark", "png")
 }
 
 function setup_layers(pScope){
 
-  new Layer(null, 48, 42, 66);  //lets us draw the whole circle background, ignoring the boundaries
+  new PLayer(null, 48, 42, 66);  //lets us draw the whole circle background, ignoring the boundaries
 
   var layer1 = new PLayer(spark);
   layer1.mode( SWIRL(2) );
@@ -27,6 +27,8 @@ function setup_layers(pScope){
 }
 
 function spark(x, y, animation, pScope){
+  scale (1*animation. frame);
+  rotate (360*animation. frame);
 pScope.draw_image("spark",x,y);
 //scale (0.2);
 
