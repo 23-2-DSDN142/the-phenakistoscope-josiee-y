@@ -1,16 +1,17 @@
-const SLICE_COUNT = 11;
+const SLICE_COUNT = 10;
 
 function setup_pScope(pScope){
  // pScope.output_mode(STATIC_FRAME);
     //pScope.output_mode( ANIMATED_FRAME);
-  pScope.output_mode(ANIMATED_DISK);
-  //pScope.output_mode(STATIC_DISK);
+  //pScope.output_mode(ANIMATED_DISK);
+  pScope.output_mode(STATIC_DISK);
   //pScope.output_mode(OUTPUT_GIF(1000));
   pScope.scale_for_screen(true);
   pScope.draw_layer_boundaries(true);
   pScope.set_direction(CCW);
   pScope.set_slice_count(SLICE_COUNT);
-  pScope.load_image("spark", "png")
+  pScope.load_image("spark", "png");
+  pScope.load_image_sequence("magic_wand", "png", 10);
 }
 
 function setup_layers(pScope){
@@ -21,23 +22,35 @@ function setup_layers(pScope){
   layer1.mode( SWIRL(2) );
   layer1.set_boundary( 100, 1000 );
 
+  var magic_wandSequence = new PLayer(magic_wand);
+  magic_wandSequence.mode(RING);
+  magic_wandSequence.set_boundary(0, 1000);
+
   // var layer2 = new PLayer(squares);
   // layer2.mode( RING );
   // layer2.set_boundary( 0, 400 );
 }
 
 function spark(x, y, animation, pScope){
-  scale (1*animation. frame);
+  scale (0.8*animation. frame);
   rotate (360*animation. frame);
 pScope.draw_image("spark",x,y);
 //scale (0.2);
 
 //rotate (360*animation. frame);
 //scale (2*animation. frame);
-
-
-
 }
+
+function magic_wand(x, y, animation, pScope){
+  translate (x,y-350);
+  scale (2);
+pScope.draw_image_from_sequence("magic_wand",0,0, animation.frame);
+}
+
+function sprinkle(x, y, animation, pScope){
+  ellipse(0,0,50,50);
+}
+
 
 // function faces(x, y, animation, pScope){
   
