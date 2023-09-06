@@ -3,8 +3,8 @@ const SLICE_COUNT = 10;
 function setup_pScope(pScope){
  // pScope.output_mode(STATIC_FRAME);
     //pScope.output_mode( ANIMATED_FRAME);
-  //pScope.output_mode(ANIMATED_DISK);
-  pScope.output_mode(STATIC_DISK);
+  pScope.output_mode(ANIMATED_DISK);
+  //pScope.output_mode(STATIC_DISK);
   //pScope.output_mode(OUTPUT_GIF(1000));
   pScope.scale_for_screen(true);
   pScope.draw_layer_boundaries(true);
@@ -19,16 +19,20 @@ function setup_layers(pScope){
   new PLayer(null, 48, 42, 66);  //lets us draw the whole circle background, ignoring the boundaries
 
   var layer1 = new PLayer(spark);
-  layer1.mode( SWIRL(2) );
+  layer1.mode( SWIRL(2.5) );
   layer1.set_boundary( 100, 1000 );
 
   var magic_wandSequence = new PLayer(magic_wand);
   magic_wandSequence.mode(RING);
   magic_wandSequence.set_boundary(0, 1000);
 
-  // var layer2 = new PLayer(squares);
-  // layer2.mode( RING );
-  // layer2.set_boundary( 0, 400 );
+  // var sprinkle = new PLayer(ellipse);
+  // sprinkle.mode( RING );
+  // sprinkle.set_boundary( 0, 400 );
+
+  var sprinkle = new PLayer(squares);
+ sprinkle.mode( RING );
+ sprinkle.set_boundary( 0, 300 );
 }
 
 function spark(x, y, animation, pScope){
@@ -48,7 +52,17 @@ pScope.draw_image_from_sequence("magic_wand",0,0, animation.frame);
 }
 
 function sprinkle(x, y, animation, pScope){
-  ellipse(0,0,50,50);
+
+  let angleOffset = (360 / SLICE_COUNT) / 2
+  let backgroundArcStart = 270 - angleOffset;
+  let backgroundArcEnd = 270 + angleOffset;
+
+  fill(18, 8, 41)
+  arc(x,y,800,800,backgroundArcStart,backgroundArcEnd);
+
+  fill(226, 206, 240);
+  ellipse(-10,-300-animation.wave()*50,20,20);
+
 }
 
 
@@ -71,10 +85,10 @@ function squares(x, y, animation, pScope){
   let backgroundArcStart = 270 - angleOffset;
   let backgroundArcEnd = 270 + angleOffset;
 
-  fill(66, 135, 245)
-  arc(x,y,800,800,backgroundArcStart,backgroundArcEnd); // draws "pizza slice" in the background
+  fill(18, 8, 41)
+  arc(x,y,600,600,backgroundArcStart,backgroundArcEnd); // draws "pizza slice" in the background
 
   fill(255)
-  rect(-10,-300-animation.wave()*50,20,20) // .wave is a cosine wave btw
+  ellipse(-10,-300-animation.wave(0.4)*400,30,30) // .wave is a cosine wave btw
 
 }
