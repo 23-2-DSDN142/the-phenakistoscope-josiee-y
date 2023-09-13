@@ -1,9 +1,9 @@
 const SLICE_COUNT = 10;
 
 function setup_pScope(pScope){
- // pScope.output_mode(STATIC_FRAME);
+  pScope.output_mode(STATIC_FRAME);
   //pScope.output_mode( ANIMATED_FRAME);
-  pScope.output_mode(ANIMATED_DISK);
+  //pScope.output_mode(ANIMATED_DISK);
   //pScope.output_mode(STATIC_DISK);
   //pScope.output_mode(OUTPUT_GIF(1000));
   pScope.scale_for_screen(true);
@@ -12,21 +12,39 @@ function setup_pScope(pScope){
   pScope.set_slice_count(SLICE_COUNT);
   pScope.load_image("spark", "png");
   pScope.load_image("sunmoon", "png");
-  pScope.load_image_sequence("magic_wand", "png", 10);
+  pScope.load_image("eyebg2", "png");
+  pScope.load_image("spiral4", "png");
+  pScope.load_image_sequence("magic_wand2", "png", 10);
   pScope.load_image_sequence("sunmoon_spin2", "png", 10);
+  pScope.load_image_sequence("eye_move", "png", 9);
+  pScope.load_image_sequence("moon", "png", 12);
 }
 
 function setup_layers(pScope){
 
   new PLayer(null, 48, 42, 66);  //lets us draw the whole circle background, ignoring the boundaries
 
+  var spiralSpin = new PLayer(spiral4);
+  spiralSpin.mode(RING);
+  spiralSpin.set_boundary(0, 1000); 
+
   var layer1 = new PLayer(spark);
-  layer1.mode( SWIRL(2.5) );
+  layer1.mode( SWIRL(4) );
   layer1.set_boundary( 100, 1000 );
 
-  var magic_wandSequence = new PLayer(magic_wand);
-  magic_wandSequence.mode(RING);
-  magic_wandSequence.set_boundary(0, 1000);
+  // var spinline = new PLayer(rectangle);
+  // spinline.mode( SWIRL(2) );
+  // spinline.set_boundary( 100, 1000 );
+
+
+
+  // var moonSequence = new PLayer(moon);
+  // moonSequence.mode(RING);
+  // moonSequence.set_boundary(0, 1000);
+
+  var magic_wand2Sequence = new PLayer(magic_wand2);
+  magic_wand2Sequence.mode(RING);
+  magic_wand2Sequence.set_boundary(0, 1000);
 
   var sunmoon_spin2Sequence = new PLayer(sunmoon_spin2);
   sunmoon_spin2Sequence.mode(RING);
@@ -36,6 +54,12 @@ function setup_layers(pScope){
  sprinkle.mode( RING );
  sprinkle.set_boundary( 0, 300 );
 
+//  var center_eyebg = new PLayer(eyebg2);
+//  center_eyebg.mode( RING );
+//  center_eyebg.set_boundary( 0, 300 );
+
+
+
  
 
 //  var centre = new PLayer(centre);
@@ -44,32 +68,32 @@ function setup_layers(pScope){
 }
 
 function spark(x, y, animation, pScope){
-  scale (0.8*animation. frame);
+  scale (0.6*animation. frame);
   rotate (360*animation. frame);
 pScope.draw_image("spark",x,y);
 //scale (0.2);
 
 }
 
-function magic_wand(x, y, animation, pScope){
-  translate (x,y-450);
-  scale (2);
-pScope.draw_image_from_sequence("magic_wand",0,0, animation.frame);
+function magic_wand2(x, y, animation, pScope){
+  translate (x,y-520);
+  scale (1.6);
+pScope.draw_image_from_sequence("magic_wand2",0,0, animation.frame);
 }
 
-function sprinkle(x, y, animation, pScope){
+// function sprinkle(x, y, animation, pScope){
 
-  let angleOffset = (360 / SLICE_COUNT) / 2
-  let backgroundArcStart = 270 - angleOffset;
-  let backgroundArcEnd = 270 + angleOffset;
+//   let angleOffset = (360 / SLICE_COUNT) / 2
+//   let backgroundArcStart = 270 - angleOffset;
+//   let backgroundArcEnd = 270 + angleOffset;
 
-  fill(18, 8, 41)
-  arc(x,y,800,800,backgroundArcStart,backgroundArcEnd);
+//   fill(18, 8, 41)
+//   arc(x,y,800,800,backgroundArcStart,backgroundArcEnd);
 
-  fill(226, 206, 240);
-  ellipse(-10,-300-animation.wave()*50,20,20);
+//   fill(226, 206, 240);
+//   ellipse(-10,-300-animation.wave()*50,20,20);
 
-}
+// }
 
 
 // function faces(x, y, animation, pScope){
@@ -86,7 +110,7 @@ function sprinkle(x, y, animation, pScope){
 
 
 function sunmoon_spin2(x, y, animation, pScope){
-  scale (2);
+  scale (2.5);
   rotate (animation. frame);
   pScope.draw_image_from_sequence("sunmoon_spin2",0,0, animation.frame);
 
@@ -101,20 +125,57 @@ function squares(x, y, animation, pScope){
   let angleOffset = (360 / SLICE_COUNT) / 2
   let backgroundArcStart = 270 - angleOffset;
   let backgroundArcEnd = 270 + angleOffset;
-
-  scale (2)
-  rotate (animation. frame);
+push()
+  scale (2.5)
+  //rotate (animation.frame);
 pScope.draw_image("sunmoon",x,y);
-
+pop()
   // fill(198, 147, 19)
   // rotate (0*animation. frame);
-  // arc(x,y,600,600,backgroundArcStart,backgroundArcEnd); // draws "pizza slice" in the background
+  //  arc(x,y,350,350,backgroundArcStart,backgroundArcEnd); // draws "pizza slice" in the background
   
 
   fill(255)
-  ellipse(-20,-400-animation.wave(0.4)*400,30,30) // .wave is a cosine wave btw
+  ellipse(-25,-400-animation.wave(0.4)*400,25,25) // .wave is a cosine wave btw
 
 }
+
+function eyebg2(x, y, animation, pScope){
+  //let angleOffset = (360 / SLICE_COUNT) / 2
+  //let backgroundArcStart = 270 - angleOffset;
+  //let backgroundArcEnd = 270 + angleOffset;
+
+  scale(0.7)
+  pScope.draw_image("eyebg2",x,y);
+
+}
+
+function moon(x, y, animation, pScope){
+  translate (x,y-840);
+  scale (0.6);
+  pScope.draw_image_from_sequence("moon",0,0, animation.frame);
+
+}
+
+
+function spiral4(x, y, animation, pScope){
+  //translate (x,y-840);
+  scale (1.5);
+  rotate (animation. frame);
+  pScope.draw_image("spiral4",x,y);
+
+}
+
+// function rectangle (x, y, animation, pScope){
+//   fill (198, 147, 19)
+  
+// beginShape();
+//  vertex (-167,40)
+//  vertex (-156,75)
+//  vertex(155, 75)
+//  vertex(155, 20)
+//  endShape();
+// }
 
 // function centre (x, y, animation, pScope){
 //   fill(198, 147, 19)
