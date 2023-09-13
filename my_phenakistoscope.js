@@ -35,9 +35,6 @@ function setup_layers(pScope){
   layer1.mode( SWIRL(6) );
   layer1.set_boundary( 100, 1000 );
 
-  // var spinline = new PLayer(rectangle);
-  // spinline.mode( SWIRL(2) );
-  // spinline.set_boundary( 100, 1000 );
 
 
   var magic_wand2Sequence = new PLayer(magic_wand3);
@@ -60,9 +57,6 @@ function setup_layers(pScope){
 
 
 
-//  var centre = new PLayer(centre);
-//  centre.mode( RING );
-//  centre.set_boundary( 0, 300 );
 }
 
 function spark(x, y, animation, pScope){
